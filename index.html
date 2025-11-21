@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Planificador de objetivos - Lucas</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Fuente Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  >
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Botón modo claro / oscuro -->
+  <button class="theme-toggle" onclick="toggleTheme()">
+    <span id="theme-icon">🌙</span>
+  </button>
+
+  <div class="app">
+    <header class="app-header">
+      <div class="app-title-block">
+        <h1>Panel de hábitos y objetivos</h1>
+        <p>Organizá tu rutina diaria y tus metas a tu manera.</p>
+        <p class="today" id="today-text"></p>
+      </div>
+      <div class="app-badge">
+        <span>Versión Lucas</span>
+      </div>
+    </header>
+
+    <!-- ASISTENTE INTELIGENTE -->
+    <section class="ai-section card ai-card">
+      <div class="ai-header">
+        <div>
+          <h2>Asistente inteligente de rutinas</h2>
+          <p class="ai-subtitle">
+            Contale a tu mini asistente cómo es tu día y qué querés lograr. Te sugiere una rutina pensada para vos.
+          </p>
+        </div>
+        <span class="ai-pill">IA local · Beta</span>
+      </div>
+
+      <form id="ai-form">
+        <div class="ai-grid">
+          <div class="form-row">
+            <label for="ai-goal">Objetivo principal *</label>
+            <select id="ai-goal" required>
+              <option value="">Elegí una opción</option>
+              <option value="salud">Salud / Entrenamiento</option>
+              <option value="estudio">Estudio / Universidad</option>
+              <option value="productividad">Productividad personal</option>
+              <option value="mixto">Mixto (estudio + salud)</option>
+            </select>
+          </div>
+
+          <div class="form-row">
+            <label for="ai-start">Horario disponible desde *</label>
+            <input type="time" id="ai-start" required />
+          </div>
+
+          <div class="form-row">
+            <label for="ai-end">Hasta *</label>
+            <input type="time" id="ai-end" required />
+          </div>
+
+          <div class="form-row">
+            <label for="ai-days">Días</label>
+            <select id="ai-days">
+              <option value="lunes-viernes">Lunes a viernes</option>
+              <option value="fin-de-semana">Fines de semana</option>
+              <option value="todos">Todos los días</option>
+            </select>
+          </div>
+
+          <div class="form-row form-row-full">
+            <label for="ai-notes">Contame tu contexto (trabajo, cursada, energía, etc.)</label>
+            <textarea
+              id="ai-notes"
+              rows="2"
+              placeholder="Ej: Trabajo de 7:30 a 13:00, curso los sábados a la mañana, quiero meter flexiones y estudiar análisis..."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions ai-actions">
+          <button type="submit" class="btn-secondary">Sugerir rutina inteligente</button>
+        </div>
+      </form>
+
+      <div id="ai-output" class="ai-output">
+        <p class="ai-placeholder">
+          Acá vas a ver la rutina sugerida según tu objetivo 💡.  
+          Después podés copiar las partes que te sirvan como tareas en el tablero de abajo.
+        </p>
+      </div>
+    </section>
+
+    <!-- FORMULARIO PARA CREAR TAREAS -->
+    <section class="task-form-section card">
+      <h2>Agregar nueva tarea</h2>
+      <p class="form-subtitle">
+        Las tareas se crean como <strong>pendientes</strong>. Cuando las hagas, las tildás como hechas ✅.
+      </p>
+      <form id="task-form">
+        <div class="form-grid">
+          <div class="form-row">
+            <label for="title">Título *</label>
+            <input
+              type="text"
+              id="title"
+              placeholder="Ej: 50 flexiones, estudiar 30 min, leer 10 páginas..."
+              required
+            />
+          </div>
+
+          <div class="form-row">
+            <label for="type">Sección / Tipo *</label>
+            <input
+              list="type-options"
+              id="type"
+              placeholder="Ej: Rutina de hoy, Estudio, Trabajo, Salud..."
+              required
+            />
+            <datalist id="type-options">
+              <option value="Rutina de hoy"></option>
+              <option value="Corto plazo"></option>
+              <option value="Mediano plazo"></option>
+              <option value="Largo plazo"></option>
+              <option value="Estudio"></option>
+              <option value="Trabajo"></option>
+              <option value="Salud / Gym"></option>
+              <option value="Finanzas"></option>
+              <option value="Proyecto personal"></option>
+            </datalist>
+          </div>
+
+          <div class="form-row">
+            <label for="date">Fecha / límite (opcional)</label>
+            <input type="date" id="date" />
+          </div>
+
+          <div class="form-row">
+            <label for="time">Horario (opcional)</label>
+            <input type="time" id="time" />
+          </div>
+
+          <div class="form-row">
+            <label for="quantity">Cantidad (opcional)</label>
+            <input
+              type="number"
+              id="quantity"
+              placeholder="Ej: 50 repeticiones, 30 minutos..."
+            />
+          </div>
+
+          <div class="form-row form-row-full">
+            <label for="notes">Notas (opcional)</label>
+            <textarea
+              id="notes"
+              rows="2"
+              placeholder="Detalles, recordatorios, con qué lo querés combinar, etc."
+            ></textarea>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-primary">Agregar tarea</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- LISTA DE TAREAS AGRUPADAS DINÁMICAMENTE -->
+    <section class="task-lists-wrapper card">
+      <div class="task-lists-header">
+        <h2>Tablero de tareas</h2>
+        <p>
+          Cada <strong>tipo/sección</strong> que escribas (Rutina, Estudio, Gym, etc.) se convierte en una columna.
+        </p>
+      </div>
+      <section class="task-lists" id="task-lists">
+        <!-- Las columnas se generan por JS -->
+      </section>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
